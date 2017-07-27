@@ -14,7 +14,7 @@ setup(
 	name='shellwhat',
 	version=version,
 	packages=['shellwhat'],
-	install_requires=['markdown2'],
+	install_requires=['sqlwhat'],
         description = 'Submission correctness tests for shell languages',
         author = 'Michael Chow',
         author_email = 'michael@datacamp.com',
