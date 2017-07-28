@@ -1,3 +1,5 @@
+import re
+
 def test_output_contains(state, text, msg = "Submission does not contain the code `{}`.", fixed = False):
     stu_output = state.student_result
 
