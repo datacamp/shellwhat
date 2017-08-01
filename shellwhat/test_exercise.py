@@ -1,5 +1,5 @@
-from sqlwhat.Test import TestFail
-from sqlwhat.Reporter import Reporter
+from protowhat.Test import TestFail
+from protowhat.Reporter import Reporter
 
 from shellwhat.sct_syntax import SCT_CTX
 from shellwhat.State import State
@@ -30,7 +30,7 @@ def test_exercise(sct,
         solution_result = solution_result,
         reporter = Reporter(error))
 
-    State.root_state = state
+    SCT_CTX['Ex'].root_state = state
 
     try:
         exec(sct, SCT_CTX)

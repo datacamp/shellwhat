@@ -1,8 +1,8 @@
 from shellwhat.test_exercise import test_exercise as te
 from shellwhat.State import State
 from shellwhat import checks
-from sqlwhat.Reporter import Reporter
-from sqlwhat.Test import TestFail as TF
+from protowhat.Reporter import Reporter
+from protowhat.Test import TestFail as TF
 from functools import partial
 from pexpect import replwrap
 
