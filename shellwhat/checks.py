@@ -1,5 +1,49 @@
 import re
 from functools import partial
+from protowhat.checks.check_logic import *
+
+def test_student_typed(state, text, msg="Submission does not contain the code `{}`.", fixed=False):
+    """Test whether the student code contains text.
+
+    Args:
+        state: State instance describing student and solution code. Can be omitted if used with Ex().
+        text : text that student code must contain.
+        msg  : feedback message if text is not in student code.
+        fixed: whether to match text exactly, rather than using regular expressions.
+
+    :Example:
+        If the student code is.. ::
+
+            SELECT a FROM b WHERE id < 100
+
+        Then the first test below would (unfortunately) pass, but the second would fail..::
+
+            # contained in student code
+            Ex().test_student_typed(text="id < 10")
+
+            # the $ means that you are matching the end of a line
+            Ex().test_student_typed(text="id < 10$")
+
+        By setting ``fixed = True``, you can search for fixed strings::
+
+            # without fixed = True, '*' matches any character
+            Ex().test_student_typed(text="SELECT * FROM b")               # passes
+            Ex().test_student_typed(text="SELECT \\\\* FROM b")             # fails
+            Ex().test_student_typed(text="SELECT * FROM b", fixed=True)   # fails
+
+    """
+    stu_ast = state.student_ast
+    stu_code = state.student_code
+
+    _msg = msg.format(text)
+
+    # either simple text matching or regex test
+    res = text in stu_code if fixed else re.search(text, stu_code)
+
+    if not res:
+        state.do_test(_msg)
+
+    return state
 
 def test_output_contains(state, text, msg = "Submission does not contain the code `{}`.", fixed = False):
     stu_output = state.student_result
@@ -40,7 +84,7 @@ def test_expr(state, expr,
 
     if (strict and res != stu_output) or (res not in stu_output):
         _msg = msg.format(expr, output)
-        state.do_test(msg)
+        state.do_test(_msg)
 
     return state
 
