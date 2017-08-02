@@ -10,7 +10,7 @@ import pytest
 
 @pytest.fixture
 def state():
-    return State(student_code = "", solution_code = "",
+    return State(student_code = "some code", solution_code = "some code",
                  pre_exercise_code = "",
                  student_conn = replwrap.bash(),
                  solution_conn = None,
@@ -42,3 +42,12 @@ def test_expr_error_code1(state):
 def test_expr_error_code1_fail(state):
     with pytest.raises(TF):
         checks.test_expr_error(state, "ls", output = "1")
+
+# ensure protowhat SCTs work --------------------------------------------------
+
+def test_multi(state):
+    checks.multi(state, lambda s: checks.test_student_typed(s, "some code"))
+
+def test_multi_fail(state):
+    with pytest.raises(TF):
+        checks.multi(state, lambda s: checks.test_student_typed(s, "some code abc"))

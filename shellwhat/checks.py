@@ -1,6 +1,6 @@
 import re
 from functools import partial
-from sqlwhat.checks import test_correct, multi, test_or
+from protowhat.checks.check_logic import *
 
 def test_student_typed(state, text, msg="Submission does not contain the code `{}`.", fixed=False):
     """Test whether the student code contains text.
