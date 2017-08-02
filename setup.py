@@ -14,7 +14,7 @@ setup(
 	name='shellwhat',
 	version=version,
 	packages=['shellwhat'],
-	install_requires=['protowhat', 'sqlwhat'],
+	install_requires=['protowhat'],
         description = 'Submission correctness tests for shell languages',
         author = 'Michael Chow',
         author_email = 'michael@datacamp.com',
