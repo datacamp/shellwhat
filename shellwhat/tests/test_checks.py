@@ -37,7 +37,8 @@ def test_expr_error_fail(state):
         checks.test_expr_error(state, "ls filethatdoesnotexist.txt")
 
 def test_expr_error_code1(state):
-    checks.test_expr_error(state, "ls filethatdoesnotexist.txt", output = "1")
+    # cat is used here since BSD and GNU ls use different exit_codes
+    checks.test_expr_error(state, "cat filethatdoesnotexist.txt", output = "1")
 
 def test_expr_error_code1_fail(state):
     with pytest.raises(TF):
