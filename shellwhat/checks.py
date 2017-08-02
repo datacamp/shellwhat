@@ -84,7 +84,7 @@ def test_expr(state, expr,
 
     if (strict and res != stu_output) or (res not in stu_output):
         _msg = msg.format(expr, output)
-        state.do_test(msg)
+        state.do_test(_msg)
 
     return state
 
