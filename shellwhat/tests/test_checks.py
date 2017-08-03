@@ -10,7 +10,7 @@ import pytest
 
 @pytest.fixture
 def state():
-    return State(student_code = "some code", solution_code = "some code",
+    return State(student_code = "some code\x1b[39;49m", solution_code = "some code",
                  pre_exercise_code = "",
                  student_conn = replwrap.bash(),
                  solution_conn = None,
@@ -18,6 +18,10 @@ def state():
                  solution_result = None,
                  reporter = Reporter())
                  
+def test_strip_ansi(state):
+    state.student_result = 'file1.txt \x1b[39;49m\x1b[0mfile2.txt'
+    assert checks.strip_ansi(state).student_result == 'file1.txt file2.txt'
+
 def test_expr_output(state):
     checks.test_expr_output(state, "echo -n stdout stuff")
 

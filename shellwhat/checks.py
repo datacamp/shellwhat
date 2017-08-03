@@ -3,10 +3,10 @@ from functools import partial, wraps
 from protowhat.checks.check_logic import *
 from protowhat.checks.check_simple import *
 
-ANSI_REGEX = "/(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]/"
+ANSI_REGEX = "(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]"
 
 def _strip_ansi(result):
-    return re.sub(ANSI_REGEX, result)
+    return re.sub(ANSI_REGEX, '', result)
 
 def strip_ansi(state):
     """Remove ANSI escape codes from student result"""
