@@ -1,6 +1,7 @@
 import re
 from functools import partial
 from protowhat.checks.check_logic import *
+from protowhat.checks.check_simple import *
 
 def test_student_typed(state, text, msg="Submission does not contain the code `{}`.", fixed=False):
     """Test whether the student code contains text.
