@@ -1,7 +1,18 @@
 import re
-from functools import partial
+from functools import partial, wraps
 from protowhat.checks.check_logic import *
 from protowhat.checks.check_simple import *
+
+ANSI_REGEX = "(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]"
+
+def _strip_ansi(result):
+    return re.sub(ANSI_REGEX, '', result)
+
+def strip_ansi(state):
+    """Remove ANSI escape codes from student result"""
+    stu_res = _strip_ansi(state.student_result)
+
+    return state.to_child(student_result = stu_res)
 
 def test_student_typed(state, text, msg="Submission does not contain the code `{}`.", fixed=False):
     """Test whether the student code contains text.
@@ -46,8 +57,15 @@ def test_student_typed(state, text, msg="Submission does not contain the code `{
 
     return state
 
-def test_output_contains(state, text, msg = "Submission does not contain the code `{}`.", fixed = False):
+def test_output_contains(state,
+                         text,
+                         msg = "Submission does not contain the code `{}`.",
+                         fixed = False,
+                         strip_ansi = True):
+
     stu_output = state.student_result
+
+    if strip_ansi: stu_output = _strip_ansi(stu_output)
 
     _msg = msg.format(text)
 
@@ -63,7 +81,8 @@ def test_expr(state, expr,
                msg,
                strict = False,
                output = None,
-               test = "output"):
+               test = "output",
+               strip_ansi = True):
     """Test the result of running shell expression.
 
     Args:
@@ -72,11 +91,14 @@ def test_expr(state, expr,
         msg  : feedback message if expression result is not in output.
         strict: whether result must be exactly equal to output, or (if False) contained therein.
         output: overrides the output that the expression result is compared to.
-        test  : whether to use stdout ("output") from the expression, or its exit code ("error")
+        test  : whether to use stdout ("output") from the expression, or its exit code ("error").
+        strip_ansi: whether to remove ANSI escape codes from result.
 
     """
 
     stu_output = output if output is not None else state.student_result
+
+    if strip_ansi: stu_output = _strip_ansi(stu_output)
 
     res = state.student_conn.run_command(expr)
     if test == 'error':
