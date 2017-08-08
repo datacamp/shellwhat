@@ -62,6 +62,16 @@ def test_output_contains(state,
                          msg = "Submission does not contain the code `{}`.",
                          fixed = False,
                          strip_ansi = True):
+    """Test whether student output contains specific text.
+
+    Args:
+        state: State instance describing student and solution code. Can be omitted if used with Ex().
+        text : text that student output must contain.
+        msg  : feedback message if text is not in student output.
+        fixed: whether to match text exactly, rather than using regular expressions.
+        strip_ansi: whether to remove ANSI escape codes from output
+
+    """
 
     stu_output = state.student_result
 
@@ -93,6 +103,9 @@ def test_expr(state, expr,
         output: overrides the output that the expression result is compared to.
         test  : whether to use stdout ("output") from the expression, or its exit code ("error").
         strip_ansi: whether to remove ANSI escape codes from result.
+
+    Note:
+        The convenience Functions ``test_expr_output`` and ``test_expr_error`` wrap ``test_expr``.
 
     """
 
