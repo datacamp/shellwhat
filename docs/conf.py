@@ -13,7 +13,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-# Mock heavy duty pythonwhat dependencies for autodoc
+# Mock heavy duty dependencies for autodoc
 import os
 import sys
 from unittest import mock
@@ -23,6 +23,7 @@ for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
 
 autodoc_member_order = 'bysource'
+add_module_names = False
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
