@@ -2,6 +2,7 @@ import re
 from functools import partial, wraps
 from protowhat.checks.check_logic import *
 from protowhat.checks.check_simple import *
+from protowhat.checks.check_funcs import *
 
 ANSI_REGEX = "(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]"
 
@@ -14,6 +15,9 @@ def strip_ansi(state):
 
     return state.to_child(student_result = stu_res)
 
+# TODO: Note that test_student_typed exists in protowhat, but is overwritten below.
+#       This is because it uses ast_node._get_text(), which is not implemented in the
+#       adaptation of the OSH parser yet (but it could be).
 def test_student_typed(state, text, msg="Submission does not contain the code `{}`.", fixed=False):
     """Test whether the student code contains text.
 
