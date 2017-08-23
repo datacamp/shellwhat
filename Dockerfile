@@ -11,7 +11,7 @@ RUN apt-get update \
 RUN echo hey && git clone -b dev-comms https://github.com/datacamp/oil.git \
     && cd oil && pip2 install -e .
 
-RUN pip3 install git+https://github.com/datacamp/protowhat.git@feature-selectors
+RUN pip3 install protowhat
 
 ADD . shellwhat
 RUN cd shellwhat && pip3 install -r requirements.txt && pip3 install -e . && rm -rf shellwhat/tests/__pycache__
