@@ -48,5 +48,11 @@ def test_osh_selector_fail(state):
     with pytest.raises(TF):
         check_field(child, 'words', 4)
 
+def test_osh_transformer_omits_sentence():
+    d = State.get_dispatcher()
+    tree = d.parse("echo a b c;")
+    assert isinstance(tree.children[0], d.nodes.get('SimpleCommand'))
+
+
 def test_has_equal_ast_simple(state):
     pass
