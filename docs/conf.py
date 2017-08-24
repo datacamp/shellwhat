@@ -18,7 +18,8 @@ import os
 import sys
 from unittest import mock
  
-MOCK_MODULES = ['protowhat.checks.check_logic', 'protowhat.checks.check_simple']
+MOCK_MODULES = ['protowhat', 'protowhat.checks',
+                'protowhat.checks.check_logic', 'protowhat.checks.check_simple', 'protowhat.checks.check_funcs']
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
 
