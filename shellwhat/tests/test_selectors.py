@@ -21,6 +21,16 @@ def state():
                  reporter = Reporter()
                  )
 
+@pytest.fixture('function')
+def d():
+    return State.get_dispatcher()
+
+def test_osh_dispatcher_ast_fails_hard(d):
+    with pytest.raises(d.ParseError): d.ast.parse("for ii")
+
+def test_osh_dispatcher_fails_gracefully(d):
+    d.parse("for ii")
+
 def test_osh_selector_result(state):
     target = state.ast_dispatcher.nodes.get('CompoundWord')
     cl = check_node(state, "SimpleCommand")
@@ -53,6 +63,20 @@ def test_osh_transformer_omits_sentence():
     tree = d.parse("echo a b c;")
     assert isinstance(tree.children[0], d.nodes.get('SimpleCommand'))
 
-
 def test_has_equal_ast_simple(state):
-    pass
+    state.solution_ast = state.ast_dispatcher.ast.parse("echo a $b ${c}")
+    has_equal_ast(state)
+
+def test_has_equal_ast_simple_fail(state):
+    with pytest.raises(TF):
+        has_equal_ast(state)
+
+def test_has_equal_ast_subcode(state):
+    word = check_field(check_node(state, 'SimpleCommand'), 'words', 0)
+    has_equal_ast(word)
+
+@pytest.mark.xfail #TODO: speaker for osh ast
+def test_dispatcher_ast_path():
+    d = State.get_dispatcher()
+    node = d.parse("echo a b c")
+    assert d.describe(node) == "command list"    # note: for CommandList node
