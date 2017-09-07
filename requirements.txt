@@ -2,3 +2,4 @@ pytest
 twine
 wheel
 pexpect
+gitpython
