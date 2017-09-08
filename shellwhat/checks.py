@@ -92,11 +92,11 @@ def test_output_contains(state,
     return state
 
 def test_expr(state, expr,
-               msg,
-               strict = False,
-               output = None,
-               test = "output",
-               strip_ansi = True):
+              msg,
+              strict = False,
+              output = None,
+              test = "output",
+              strip_ansi = True):
     """Test the result of running shell expression.
 
     Args:
