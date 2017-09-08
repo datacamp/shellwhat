@@ -3,6 +3,8 @@
 *.class
 # Vim swapfiles
 .*.swp
+# Emacs backup files
+*~
 
 # Python ----------------------------------------------------------------------
 # Byte-compiled / optimized / DLL files
