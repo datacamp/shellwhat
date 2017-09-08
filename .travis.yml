@@ -7,7 +7,7 @@ install:
 - pip install .
 - "sudo apt-get install -y python python-dev python-pip"
 - "sudo mkdir -p /usr/bin/python2_7 && sudo ln /usr/bin/python2.7 /usr/bin/python2_7/python"
-- 'git clone -b dev-comms https://github.com/datacamp/oil.git && PATH="/usr/bin/python2_7:$PATH" pip2 install -e oil/.'
+- 'git clone -b dev-comms https://github.com/datacamp/oil.git && PATH="/usr/bin/python2_7:$PATH" sudo pip2 install -e oil/.'
 script: py.test shellwhat/tests
 deploy:
   provider: pypi
