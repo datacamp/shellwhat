@@ -11,8 +11,11 @@ RUN apt-get update \
 RUN echo hey && git clone -b dev-comms https://github.com/datacamp/oil.git \
     && cd oil && pip2 install -e .
 
+ADD requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
 ADD . shellwhat
-RUN cd shellwhat && pip3 install -r requirements.txt && pip3 install -e .
+RUN cd shellwhat && pip3 install -e .
 
 WORKDIR /shellwhat
 
