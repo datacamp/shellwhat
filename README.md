@@ -1,6 +1,10 @@
 shellwhat
 =========
 
+[![Build Status](https://travis-ci.org/datacamp/shellwhat.svg?branch=master)](https://travis-ci.org/datacamp/shellwhat)
+[![PyPI version](https://badge.fury.io/py/shellwhat.svg)](https://badge.fury.io/py/shellwhat)
+
+
 Documentation
 ---------------
 
