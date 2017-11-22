@@ -3,6 +3,7 @@ from functools import partial, wraps
 from protowhat.checks.check_logic import *
 from protowhat.checks.check_simple import *
 from protowhat.checks.check_funcs import *
+from protowhat.checks.check_files import *
 
 ANSI_REGEX = "(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]"
 
