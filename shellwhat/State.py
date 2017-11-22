@@ -1,6 +1,6 @@
 from protowhat.selectors import Dispatcher
 from protowhat.State import State as BaseState
-from shellwhat.parsers import OshParser, ParseError
+from shellwhat.parsers import DEFAULT_PARSER, ParseError
 
 class State(BaseState):
 
@@ -9,6 +9,6 @@ class State(BaseState):
 
     @staticmethod
     def get_dispatcher():
-        ast_mod = OshParser(ParseError = ParseError)
+        ast_mod = DEFAULT_PARSER(ParseError = ParseError)
         return Dispatcher(ast_mod.classes, ast_mod)
         
