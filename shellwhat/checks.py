@@ -1,8 +1,8 @@
+import os
 import re
 from functools import partial, wraps
 from protowhat.checks.check_logic import *
 from protowhat.checks.check_simple import *
-from protowhat.checks.check_funcs import *
 
 ANSI_REGEX = "(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]"
 
@@ -15,9 +15,6 @@ def strip_ansi(state):
 
     return state.to_child(student_result = stu_res)
 
-# TODO: Note that test_student_typed exists in protowhat, but is overwritten below.
-#       This is because it uses ast_node._get_text(), which is not implemented in the
-#       adaptation of the OSH parser yet (but it could be).
 def test_student_typed(state, text, msg="Submission does not contain the code `{}`.", fixed=False):
     """Test whether the student code contains text.
 
@@ -125,6 +122,39 @@ def test_expr(state, expr,
     if (strict and res != stu_output) or (res not in stu_output):
         _msg = msg.format(expr, output)
         state.do_test(_msg)
+
+    return state
+
+def test_file_compare(state, user_file, existence_msg, reference_file, content_msg,
+                      ignore_whitespace=False):
+    """Check that a file exists and has the expected content.
+
+    Args:
+        state : State instance describing student and solution code. Can be omitted if used with Ex().
+        user_file : Path to file written by user.  Environment variables are expanded.
+        existence_msg : Message to display if user file does not exist.
+        reference_file : File provided with lesson to compare against.  Environment variables are expanded.
+        content_msg : Message to display if user file does not match reference file.
+        ignore_whitespace : if True, leading/trailing blanks and trailing blank lines are ignored.
+
+    Note:
+        ignore_whitespace is currently ignored.
+
+        Assumes that the environment variables HOME and ANSWERS point to
+        the user's home directory and the directory containing reference (answer) files.
+
+    """
+
+    user_file = os.path.expandvars(user_file)
+    reference_file = os.path.expandvars(reference_file)
+
+    assert os.path.exists(reference_file), f'Missing reference file {reference_file}'
+
+    user_file_expr = f'[ -e {user_file} ]'
+    test_expr(state, user_file_expr, existence_msg, test="error")
+
+    comparison_expr = f'cmp --silent {user_file} {reference_file}'
+    test_expr(state, comparison_expr, content_msg, test="error")
 
     return state
 
