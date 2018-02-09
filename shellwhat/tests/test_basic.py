@@ -18,19 +18,28 @@ def te_sct():
         error=[]
         )
 
+@pytest.mark.parametrize('code,is_correct', [
+        ("Ex().test_student_typed('ls -t', fixed = True)", True),
+        ("Ex().test_student_typed('ls -G', fixed = True)", False),
+        ("Ex().test_student_typed('ls -G', fixed = True)", False),
+        ("Ex().test_output_contains('file1', fixed = True)", True),
+        ("Ex().test_output_contains('ZZZ', fixed = True)", False)
+        ])
+def test_sct(te_sct, code, is_correct):
+    sct_payload = te_sct(code)
+    assert sct_payload.get('correct') == is_correct
 
-def test_test_student_typed_pass(te_sct):
-    sct_payload = te_sct("Ex().test_student_typed('ls -t', fixed = True)")
-    assert sct_payload.get('correct') == True
-
-def test_test_student_typed_fail(te_sct):
-    sct_payload = te_sct("Ex().test_student_typed('ls -G', fixed = True)")
-    assert sct_payload.get('correct') == False
-
-def test_test_output_contains_pass(te_sct):
-    sct_payload = te_sct("Ex().test_output_contains('file1', fixed = True)")
-    assert sct_payload.get('correct') == True
-
-def test_test_output_contains_fail(te_sct):
-    sct_payload = te_sct("Ex().test_output_contains('ZZZ', fixed = True)")
-    assert sct_payload.get('correct') == False
+@pytest.mark.osh
+def test_sct_check_file():
+    sct_payload = te(
+            "Ex().check_file('file1.sh').test_student_typed('hey')",
+            student_code =  {'file1.sh': 'echo hey'},
+            solution_code = {'file1.sh': 'echo ya'},
+            pre_exercise_code = "",
+            student_conn = None,
+            solution_conn = None,
+            student_result = '',
+            solution_result = '',
+            ex_type="NormalExercise",
+            error=[]
+            )
