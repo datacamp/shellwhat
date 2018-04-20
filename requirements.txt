@@ -1,4 +1,6 @@
 pytest
+codecov
+pytest-cov
 twine
 wheel
 pexpect
