@@ -2,6 +2,7 @@ shellwhat
 =========
 
 [![Build Status](https://travis-ci.org/datacamp/shellwhat.svg?branch=master)](https://travis-ci.org/datacamp/shellwhat)
+[![codecov](https://codecov.io/gh/datacamp/shellwhat/branch/master/graph/badge.svg)](https://codecov.io/gh/datacamp/shellwhat)
 [![PyPI version](https://badge.fury.io/py/shellwhat.svg)](https://badge.fury.io/py/shellwhat)
 
 
