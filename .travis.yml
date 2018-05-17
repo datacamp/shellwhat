@@ -1,14 +1,20 @@
 sudo: required
 language: python
+
 python:
-- '3.5'
+  - '3.5'
+
 install:
-- pip install -r requirements.txt
-- pip install -e .
-- "sudo apt-get install -y python python-dev python-pip"
-- "sudo mkdir -p /usr/bin/python2_7 && sudo ln /usr/bin/python2.7 /usr/bin/python2_7/python"
-- 'git clone -b dev-comms https://github.com/datacamp/oil.git && PATH="/usr/bin/python2_7:$PATH" sudo pip2 install -e oil/.'
-script: pytest --cov=shellwhat shellwhat/tests && codecov
+  - pip install -r requirements.txt
+  - pip install -e .
+  - "sudo apt-get install -y python python-dev python-pip"
+  - "sudo mkdir -p /usr/bin/python2_7 && sudo ln /usr/bin/python2.7 /usr/bin/python2_7/python"
+  - 'git clone -b dev-comms https://github.com/datacamp/oil.git && PATH="/usr/bin/python2_7:$PATH" sudo pip2 install -e oil/.'
+
+script:
+  - pytest --cov=shellwhat
+  - codecov
+
 deploy:
   provider: pypi
   user: machow

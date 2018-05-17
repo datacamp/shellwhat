@@ -1,6 +1,5 @@
-pytest
-codecov
-pytest-cov
-twine
-wheel
-pexpect
+pytest==3.5.0
+codecov==2.0.15
+pytest-cov==2.5.1
+protowhat==0.6.1
+pexpect==4.5.0
