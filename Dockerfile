@@ -19,4 +19,4 @@ RUN cd shellwhat && pip3 install -e .
 
 WORKDIR /shellwhat
 
-CMD ["/bin/bash", "-c", "py.test"]
+CMD ["/bin/bash", "-c", "pytest"]
