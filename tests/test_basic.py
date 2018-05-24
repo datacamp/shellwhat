@@ -43,3 +43,4 @@ def test_sct_check_file():
             ex_type="NormalExercise",
             error=[]
             )
+    assert sct_payload.get('correct')

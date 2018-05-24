@@ -1,7 +1,11 @@
-test:
+test: clean
 	rm -rf shellwhat/tests/__pycache__
 	docker build -t shellwhat .
 	docker run --rm shellwhat
+
+clean:
+	find . \( -name \*.pyc -o -name \*.pyo -o -name __pycache__ \) -prune -exec rm -rf {} +
+	rm -rf sqlwhat.egg-info
 
 dev:
 	docker build -t shellwhat .
