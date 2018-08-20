@@ -1,5 +1,5 @@
-Result checks
--------------
+Checks
+------
 
 .. autofunction:: shellwhat.checks.check_funcs.has_code
 
@@ -7,10 +7,16 @@ Result checks
 
 .. autofunction:: shellwhat.checks.check_funcs.has_expr_output
 
-.. autofunction:: shellwhat.checks.check_funcs.has_expr_error
+.. autofunction:: shellwhat.checks.check_funcs.has_expr_exit_code
+
+Files
+-----
+
+.. automodule:: protowhat.checks.check_files
+    :members:
 
 Logic
--------
+-----
 
 .. automethod:: protowhat.sct_syntax.Ex.__call__
 
