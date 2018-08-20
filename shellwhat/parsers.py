@@ -24,15 +24,16 @@ class DummyParser(AstModule):
     def parse(self, *args, **kwargs):
         return None
 
-# Set defaults for customizing how which parser is used,
-# and how OSH is called
+# Determine which parser to use and how it is called.
+# By default, the DummyParser is used.
 import os
 parse_opt = os.environ.get('SHELLWHAT_PARSER')
 
-DEFAULT_PARSER = DummyParser if parse_opt == '0' else OshParser
-print(DEFAULT_PARSER)
-PARSER_OSH_STUB = ["python2", "-m", "osh"]
-
-if parse_opt == 'docker':
-    PARSER_OSH_STUB = ["docker", "exec", "oilc"] + PARSER_OSH_STUB
-
+if parse_opt == 'osh':
+    DEFAULT_PARSER = OshParser
+    PARSER_OSH_STUB = ["python2", "-m", "osh"]
+elif parse_opt == 'docker':
+    DEFAULT_PARSER = OshParser
+    PARSER_OSH_STUB = ["docker", "exec", "oilc", "python2", "-m", "osh"]
+else:
+    DEFAULT_PARSER = DummyParser
