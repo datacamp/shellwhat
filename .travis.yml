@@ -1,5 +1,8 @@
-sudo: required
+sudo: false
 language: python
+
+services:
+  - docker
 
 python:
   - '3.5'
@@ -7,12 +10,11 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install -e .
-  - "sudo apt-get install -y python python-dev python-pip"
-  - "sudo mkdir -p /usr/bin/python2_7 && sudo ln /usr/bin/python2.7 /usr/bin/python2_7/python"
-  - 'git clone -b dev-comms https://github.com/datacamp/oil.git && PATH="/usr/bin/python2_7:$PATH" sudo pip2 install -e oil/.'
+  - make clean install
+  - export SHELLWHAT_PARSER='docker'
 
 script:
-  - pytest --cov=shellwhat
+  - make run && pytest --cov=shellwhat
   - codecov
 
 deploy:

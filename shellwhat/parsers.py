@@ -2,6 +2,7 @@ from protowhat.utils_ast import AstModule
 from ast import NodeTransformer
 from subprocess import check_output
 import json
+import os
 
 class ParseError(Exception): pass
 
@@ -26,9 +27,7 @@ class DummyParser(AstModule):
 
 # Determine which parser to use and how it is called.
 # By default, the DummyParser is used.
-import os
 parse_opt = os.environ.get('SHELLWHAT_PARSER')
-
 if parse_opt == 'osh':
     DEFAULT_PARSER = OshParser
     PARSER_OSH_STUB = ["python2", "-m", "osh"]

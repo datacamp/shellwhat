@@ -21,18 +21,21 @@ pip install shellwhat
 Development
 -----------
 
-Without the Osh parser ...
+By default, the `DummyParser` is used, that does not parse the shell code.
+Hence, you can not run tests that need this parser:
 
 ```
-export SHELLWHAT_PARSER='0'
 pytest -m "not osh"
 ```
 
-With the Osh parser using docker ...
+There is Dockerfile to parse shell commands with the [Oil parser](https://github.com/oilshell/oil):
 
 ```
 # install osh parser docker image
-make dev
+make clean install
+
+# spin up docker container and tell shellwhat to use it
+make run
 export SHELLWHAT_PARSER='docker'
 
 # run tests
