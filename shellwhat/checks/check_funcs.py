@@ -12,7 +12,7 @@ def strip_ansi(state):
 
     return state.to_child(student_result = stu_res)
 
-def has_code(state, text, incorrect_msg="The checker expected to find `{{text}}`.", fixed=False):
+def has_code(state, text, incorrect_msg="The checker expected to find `{{text}}` in your command.", fixed=False):
     """Override of has_code in protowhat (because ast_node._get_text() is not implemented in OSH parser)"""
     stu_code = state.student_code
 
@@ -27,7 +27,7 @@ def has_code(state, text, incorrect_msg="The checker expected to find `{{text}}`
 
 def has_output(state,
                text,
-               msg = "Submission does not contain the code `{}`.",
+               incorrect_msg="The checker expected to find `{{text}}` in the output of your command.",
                fixed = False,
                strip_ansi = True):
     """Test whether student output contains specific text.
@@ -48,12 +48,11 @@ def has_output(state,
 
     if strip_ansi: stu_output = _strip_ansi(stu_output)
 
-    _msg = msg.format(text)
-
     # either simple text matching or regex test
     res = text in stu_output if fixed else re.search(text, stu_output)
 
     if not res:
+        _msg = state.build_message(incorrect_msg, fmt_kwargs={ 'text': text })
         state.do_test(_msg)
 
     return state
