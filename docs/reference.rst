@@ -1,9 +1,30 @@
-Check functions
----------------
+Checks
+------
 
-.. automodule:: shellwhat.checks
+.. autofunction:: shellwhat.checks.check_funcs.has_code
+
+.. autofunction:: shellwhat.checks.check_funcs.has_output
+
+.. autofunction:: shellwhat.checks.check_funcs.has_expr_output
+
+.. autofunction:: shellwhat.checks.check_funcs.has_expr_exit_code
+
+Files
+-----
+
+.. automodule:: protowhat.checks.check_files
     :members:
 
-.. autofunction:: shellwhat.checks.test_expr_output
+Logic
+-----
 
-.. autofunction:: shellwhat.checks.test_expr_error
+.. automethod:: protowhat.sct_syntax.Ex.__call__
+
+.. automodule:: protowhat.checks.check_logic
+    :members:
+
+Electives
+---------
+
+.. automodule:: protowhat.checks.check_simple
+    :members:

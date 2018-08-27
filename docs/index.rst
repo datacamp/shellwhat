@@ -1,28 +1,34 @@
 shellwhat
 ---------
 
-``shellwhat`` enables you to write Submission Correctness Tests (SCTs) for interactive Shell exercises on DataCamp.
+For an introduction to SCTs and how to use shellwhat, visit the `README <https://github.com/datacamp/shellwhat>`_.
 
-- If you are new to teaching on DataCamp, check out https://authoring.datacamp.com.
-- If you want to learn what SCTs are and how they work, visit `this article <https://authoring.datacamp.com/courses/exercises/technical-details/sct.html>`_ specifically.
+This documentation features:
 
-If you are new to writing SCTs for Shell exercises, start with the ``protowhat`` docs (`link <https://protowhat.readthedocs.io>`_)
-that explain the concept of state, SCT chaining, and how this relates to abstract syntax trees, in addition to providing documentation
-on all SCT functions that are shared with the ``sqlwhat`` package (used for writing SCTs for SQL exercises).
+- A glossary with typical use-cases and corresponding SCT constructs.
+- Reference documentation of all actively maintained shellwhat functions.
+- Some articles that gradually expose of shellwhat's functionality and best practices.
 
-After consulting the resources above, you can continue with this site that features:
-
-- Articles that list best practices commonly used SCT patterns.
-- Reference documentation for all SCT functions that are specific to Shell exercises.
+If you are new to writing SCTs for Shell exercises, start with the tutorial.
+The glossary is good to get a quick overview of how all functions play together after you have a basic understanding.
+The reference docs become useful when you grasp all concepts and want to look up details on how to call certain functions and specify custom feedback messages.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Articles
+   :caption: Glossary
 
-   articles/glossary.rst
+   glossary
 
 .. toctree::
    :maxdepth: 2
    :caption: Reference
 
    reference
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Articles
+
+   articles/tutorial.rst
+
+For details, questions and suggestions, `contact us <mailto:content-engineering@datacamp.com>`_.
