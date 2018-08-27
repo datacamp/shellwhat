@@ -10,12 +10,10 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install -e .
-  - make clean install
-  - export SHELLWHAT_PARSER='docker'
 
 script:
-  - make run && pytest --cov=shellwhat
-  - codecov
+  - export SHELLWHAT_PARSER='docker'
+  - make test
 
 deploy:
   provider: pypi

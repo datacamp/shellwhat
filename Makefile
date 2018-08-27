@@ -1,14 +1,12 @@
-install:
-	docker build -t shellwhat .
-
 clean:
 	find . \( -name \*.pyc -o -name \*.pyo -o -name __pycache__ \) -prune -exec rm -rf {} +
 	rm -rf shellwhat.egg-info
 
-test: clean install
-	docker run --rm shellwhat
+build_docker:
+	docker build -t shellwhat .
 
-run:
+test: build_docker
 	docker run --rm -it -d --name oilc shellwhat /bin/bash
-
-dev: clean install run
+	pytest --cov=shellwhat
+	codecov
+	docker stop oilc

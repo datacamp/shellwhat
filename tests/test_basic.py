@@ -31,7 +31,7 @@ def test_sct(te_sct, code, is_correct):
 
 def test_sct_check_file():
     sct_payload = te(
-        "Ex().check_file('file1.sh').has_code('hey')",
+        "Ex().check_file('file1.sh', use_fs=False).has_code('hey')",
         student_code =  {'file1.sh': 'echo hey'},
         solution_code = {'file1.sh': 'echo ya'},
         pre_exercise_code = "",

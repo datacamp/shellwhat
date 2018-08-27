@@ -28,16 +28,12 @@ Hence, you can not run tests that need this parser:
 pytest -m "not osh"
 ```
 
-There is Dockerfile to parse shell commands with the [Oil parser](https://github.com/oilshell/oil):
+If you also want to run these 'parser tests',
+there is Dockerfile to parse shell commands with
+the [Oil parser](https://github.com/oilshell/oil):
 
 ```
-# install osh parser docker image
-make clean install
-
-# spin up docker container and tell shellwhat to use it
-make run
+# Look in Makefile for details
 export SHELLWHAT_PARSER='docker'
-
-# run tests
-pytest
+make test
 ```
