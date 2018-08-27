@@ -10,6 +10,4 @@ This exercise state contains all the information that is required to check if an
 + the errors that running the student's query generated, if any.
 
 As SCT functions are chained together with ``.``, the ``Ex()`` exercise state is copied and adapted into 'sub states' to zoom in on particular parts of the state.
-Before this theory blows your brains out, let's have a look at some basic examples.
-
-TODO
+Before this theory blows your brains out, some examples will be included in this tutorial soon.

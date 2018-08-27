@@ -1,7 +1,7 @@
 shellwhat
 ---------
 
-For an introduction to SCTs and how they use shellwhat, visit the `README <https://github.com/datacamp/shellwhat>`_.
+For an introduction to SCTs and how to use shellwhat, visit the `README <https://github.com/datacamp/shellwhat>`_.
 
 This documentation features:
 

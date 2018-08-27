@@ -19,7 +19,6 @@ def test_exercise(sct,
     """
     """
 
-    # TODO: put reporter on state
     state = State(
         student_code = student_code,
         solution_code = solution_code,
