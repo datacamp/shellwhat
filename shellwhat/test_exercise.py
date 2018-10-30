@@ -14,6 +14,7 @@ def test_exercise(sct,
                   pre_exercise_code,
                   ex_type,
                   error,
+                  force_diagnose = False,
                   debug = False   # currently unused
                   ):
     """
@@ -27,7 +28,8 @@ def test_exercise(sct,
         solution_conn = solution_conn,
         student_result = student_result,
         solution_result = solution_result,
-        reporter = Reporter(error))
+        reporter = Reporter(error),
+        force_diagnose = force_diagnose)
 
     SCT_CTX['Ex'].root_state = state
 
