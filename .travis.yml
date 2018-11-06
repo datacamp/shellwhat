@@ -1,25 +1,20 @@
 sudo: false
 language: python
-
 services:
-  - docker
-
+- docker
 python:
-  - '3.5'
-
+- '3.5'
 install:
-  - pip install -r requirements.txt
-  - pip install -e .
-
+- pip install -r requirements.txt
+- pip install -e .
 script:
-  - export SHELLWHAT_PARSER='docker'
-  - make test
-
+- export SHELLWHAT_PARSER='docker'
+- make test
 deploy:
   provider: pypi
-  user: machow
+  user: datacamp
   password:
-    secure: QTs8hWRaeCo6ZimW6tAPHqH4KVli+5DgXnLQkifv61hMC0rKtag0X6AiHHcXsLJk4TW61TLP5Hzuewzhzkx3VGQdJPSawlWxfJEGciUbcPxG33xSskytZxgp/k6bqE7e+XNR0zskCJRBdTedBiu+mY2jO0gTPm/f6AweZ9wURbR+rb1w4cyiUa2NzzJeehYl1BhJ609Fd1ailmWApyXlh9tzOcbimwChWtD48oZ2RVssiyrAyXsygTak+CmzabFmbufnb+apPek76ikwiGwESOajaWyRL25RCMj+H+64oeMOcyhtVSMnWlzhCyLLuvdwQwbMktUmoEAefTqWKa179hDindYGsOFfBrjXSiHE3s9uozBSmwDXKAcJ62dYP4xN6YT0usC+ZpAe8Jiw2ZlkUi55JYcQcwnurwjBJJgMxXVMgI4c3Eei6tsJhKIRTZ1ZOT+sTXtMF75QvZ+X6+HXrG7SaXn5oAVP2kuNCycpgKDzSZPuHARvWulARsfspJRK0e9urN5G6E/efvLWWpNJ1aYi+K4f70NdiAkgTIzYdQSV2c7FG+pHYSByUK+ArafMwGmCI658YQPgDRMjTrh4h/rxkMPX2196sBNmdea+TaxpNPMHjc3ummgayWz2KIkbqqUb1CYSS/naZJICd/FD2e8nkmAoSU8p2+suNJgqI3c=
+    secure: cLGsJOcHA9QSH88XYMqZaxN67VXNHlpsGL2xzXlffmj6iZWus0LzMqa/Tsijme9SsyiEO3PL+RVBbwi3O0eE1QXyT2bqH3/M0cWM8iZ0lxssFSQyri/iPhk41zuu7f6mW7oRDsst7uWyTJwdwSxcUr/P3YVD/g4Sh6rtH38y7oW/cOFwOH77J/geWYoPsR50iKlggqWDIqpNtnxqLSvoh3DQxNZGbsmnyci5b1evLzUqFCNyn68E+0ltobPaxHXxcRFR++epGMH+WKyYUyWiRGfNMim6cmc6WIntRsSJttYtmONxFd1PmP6+JPFvOBNO+DRMm0w+5fT1TdpMLT+A9FKyyVU52Mj+PGu0rgdvy91fNNVT3Qx72ClmV6yaMkd8LkJBk1xBPOFznq/J5sBi00IxGiHoMP0WVoGpMosj5wz+Gc2JdVf2yPzGLK+A4KddF74zCERb7aLhnIDZOYDQA8iSUui0RLHs81DK5NlrPqvkr/xKxpMW1DYgfm/JtcUeMZzhN5lWeFksYZSTFDCrCivZ7uFduxURLTinUmxdAstmxH/92xiwpdM4adD+kU5j4t+q+BaYyk/XkUIlk8EMxb+6pCnPmDt+Ys+E9+JWWOBi93XFCqUkYW0EouvkfTiYT8FRd3CPS3gZr9Lu4eMj6LRjRhMvtXhG0s3LwoG0zlQ=
   on:
     tags: true
     distributions: sdist bdist_wheel

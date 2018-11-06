@@ -2,6 +2,10 @@
 
 All notable changes to the shellwhat project will be documented in this file.
 
+## 1.1.0
+
+- Add optional `force_diagnose` parameter to `test_exercise` to force passing the `diagnose` tests in `check_correct`.
+
 ## 1.0.0
 
 - All functions that start with `test_` have been deprecated.
