@@ -4,6 +4,7 @@ shellwhat
 [![Build Status](https://travis-ci.org/datacamp/shellwhat.svg?branch=master)](https://travis-ci.org/datacamp/shellwhat)
 [![codecov](https://codecov.io/gh/datacamp/shellwhat/branch/master/graph/badge.svg)](https://codecov.io/gh/datacamp/shellwhat)
 [![PyPI version](https://badge.fury.io/py/shellwhat.svg)](https://badge.fury.io/py/shellwhat)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdatacamp%2Fshellwhat.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdatacamp%2Fshellwhat?ref=badge_shield)
 
 `shellwhat` enables you to write Submission Correctness Tests (SCTs) for interactive Shell exercises on DataCamp.
 
@@ -37,3 +38,7 @@ the [Oil parser](https://github.com/oilshell/oil):
 export SHELLWHAT_PARSER='docker'
 make test
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdatacamp%2Fshellwhat.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdatacamp%2Fshellwhat?ref=badge_large)
