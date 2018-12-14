@@ -36,7 +36,12 @@ def test_exercise(sct,
     try:
         exec(sct, SCT_CTX)
     except TestFail as tf:
-        return tf.payload
-    
-    return state.reporter.build_final_payload()
+        result = tf.payload
+        result["student_code"] = student_code
+        return result
+
+    result = state.reporter.build_final_payload()
+    result["student_code"] = student_code
+
+    return result
 

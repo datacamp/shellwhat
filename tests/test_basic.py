@@ -28,6 +28,7 @@ def te_sct():
 def test_sct(te_sct, code, is_correct):
     sct_payload = te_sct(code)
     assert sct_payload.get('correct') == is_correct
+    assert sct_payload.get('student_code') == "ls -t"
 
 def test_sct_check_file():
     sct_payload = te(
