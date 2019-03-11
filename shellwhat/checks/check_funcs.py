@@ -16,7 +16,7 @@ def has_code(state, text, incorrect_msg="The checker expected to find `{{text}}`
     """Check whether the student code contains text.
 
     This function is a simpler override of the `has_code` function in protowhat,
-    because ``ast_node._get_text()`` is not implemented in the OSH parser
+    because ``ast_node.get_text()`` is not implemented in the OSH parser
 
     Using ``has_code()`` should be a last resort. It is always better to look at the result of code
     or the side effects they had on the state of your program.

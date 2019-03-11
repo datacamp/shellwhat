@@ -10,5 +10,5 @@ class State(BaseState):
     @staticmethod
     def get_dispatcher():
         ast_mod = DEFAULT_PARSER(ParseError = ParseError)
-        return Dispatcher(ast_mod.classes, ast_mod)
-        
+        return Dispatcher(ast_mod.AstNode, ast_mod.classes, ast=ast_mod)
+
