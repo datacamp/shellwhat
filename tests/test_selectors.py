@@ -24,12 +24,12 @@ def state():
 
 @pytest.fixture('function')
 def d():
-    return State.get_dispatcher()
+    return state().get_dispatcher()
 
 @pytest.mark.osh
 class TestOsh:
     def test_osh_dispatcher_ast_fails_hard(self, d):
-        with pytest.raises(d.ParseError): d.ast.parse("for ii")
+        with pytest.raises(d.ParseError): d.ast_mod.parse("for ii")
 
     def test_osh_dispatcher_fails_gracefully(self, d):
         d.parse("for ii")
@@ -61,13 +61,12 @@ class TestOsh:
         with pytest.raises(TF):
             check_edge(child, 'words', 4)
 
-    def test_osh_transformer_omits_sentence(self):
-        d = State.get_dispatcher()
+    def test_osh_transformer_omits_sentence(self, d):
         tree = d.parse("echo a b c;")
         assert isinstance(tree.children[0], d.nodes.get('SimpleCommand'))
 
     def test_has_equal_ast_simple(self, state):
-        state.solution_ast = state.ast_dispatcher.ast.parse("echo a $b ${c}")
+        state.solution_ast = state.ast_dispatcher.ast_mod.parse("echo a $b ${c}")
         has_equal_ast(state)
 
     def test_has_equal_ast_simple_fail(self, state):
@@ -79,7 +78,6 @@ class TestOsh:
         has_equal_ast(word)
 
     @pytest.mark.xfail #TODO: speaker for osh ast
-    def test_dispatcher_ast_path(self):
-        d = State.get_dispatcher()
+    def test_dispatcher_ast_path(self, d):
         node = d.parse("echo a b c")
         assert d.describe(node) == "command list"    # note: for CommandList node

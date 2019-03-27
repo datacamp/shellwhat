@@ -1,6 +1,8 @@
 import re
 from functools import partial
 
+from protowhat.Feedback import Feedback
+
 ANSI_REGEX = r"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]"
 
 def _strip_ansi(result):
@@ -55,7 +57,7 @@ def has_code(state, text, incorrect_msg="The checker expected to find `{{text}}`
 
     if not res:
         _msg = state.build_message(incorrect_msg, fmt_kwargs={ 'text': text })
-        state.do_test(_msg)
+        state.report(Feedback(_msg))
 
     return state
 
@@ -106,7 +108,7 @@ def has_output(state,
 
     if not res:
         _msg = state.build_message(incorrect_msg, fmt_kwargs={ 'text': text, 'fixed': fixed })
-        state.do_test(_msg)
+        state.report(Feedback(_msg))
 
     return state
 
@@ -158,7 +160,7 @@ def has_expr(state,
     # do the comparison
     if (strict and res != stu_output) or (res not in stu_output):
         _msg = state.build_message(incorrect_msg, fmt_kwargs={ 'expr':expr, 'output':output })
-        state.do_test(_msg)
+        state.report(Feedback(_msg))
 
     return state
 
