@@ -32,7 +32,7 @@ class DummyParser(AstModule):
 
 # Determine which parser to use and how it is called.
 # By default, the DummyParser is used.
-parse_opt = os.environ.get("SHELLWHAT_PARSER")
+parse_opt = os.environ.get("SHELLWHAT_PARSER", "osh")
 if parse_opt == "osh":
     DEFAULT_PARSER = OshParser
     PARSER_OSH_STUB = ["python2", "-m", "osh"]
