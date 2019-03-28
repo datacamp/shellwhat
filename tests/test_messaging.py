@@ -1,5 +1,5 @@
 from shellwhat.State import State
-from shellwhat.checks.check_funcs import *
+from shellwhat.checks.has_funcs import *
 from protowhat.checks.check_logic import multi
 from protowhat.Reporter import Reporter
 from protowhat.Test import TestFail as TF
