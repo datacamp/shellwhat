@@ -1,4 +1,4 @@
-from shellwhat.checks.check_funcs import has_code, has_output, has_cwd, has_expr_output, has_expr_exit_code
+from shellwhat.checks.has_funcs import has_code, has_output, has_cwd, has_expr_output, has_expr_exit_code
 
 # don't import any check_funcs:
 # - check_node, check_edge and has_equal_ast don't work well.
