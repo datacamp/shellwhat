@@ -1,11 +1,21 @@
-from protowhat.utils_ast import AstModule
+from protowhat.utils_ast import AstNode, AstModule
 from ast import NodeTransformer
 from subprocess import check_output
 import json
 import os
 
 
+class OshNode(AstNode):
+    def get_text(self, full_text=None):
+        return self.text
+
+    def get_position(self):
+        return self.position
+
+
 class OshParser(AstModule):
+    AstNode = OshNode
+
     @classmethod
     def parse(cls, code, strict=True):
         try:
@@ -17,6 +27,22 @@ class OshParser(AstModule):
             raise cls.ParseError("Parser failed")
         tree = cls.load(ast_dict)
         return OshTransformer().visit(tree)
+
+    @classmethod
+    def dump(cls, tree):
+        node = super().dump(tree)
+        if isinstance(node, dict):
+            node["text"] = tree.text
+            node["position"] = tree.position
+        return node
+
+    @classmethod
+    def load(cls, node):
+        obj = super().load(node)
+        if isinstance(obj, cls.AstNode):
+            obj.text = node["text"]
+            obj.position = node["position"]
+        return obj
 
 
 class OshTransformer(NodeTransformer):
