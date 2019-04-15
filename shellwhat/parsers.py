@@ -19,7 +19,9 @@ class OshParser(AstModule):
     @classmethod
     def parse(cls, code, strict=True):
         try:
-            res = check_output(PARSER_OSH_STUB + [code], env=dict(os.environ, PYENV_VERSION="2.7.10"))
+            res = check_output(
+                PARSER_OSH_STUB + [code], env=dict(os.environ, PYENV_VERSION="2.7.10")
+            )
             ast_dict = json.loads(res.decode())
             if ast_dict is None:
                 raise cls.ParseError("Parser returned None")
@@ -47,6 +49,7 @@ class OshParser(AstModule):
 
 class OshTransformer(NodeTransformer):
     """Reshaping on tree, for example, dropping or modifying nodes"""
+
     pass
 
 
