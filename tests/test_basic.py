@@ -1,3 +1,5 @@
+from tempfile import NamedTemporaryFile
+
 from shellwhat.test_exercise import test_exercise as te
 from functools import partial
 
@@ -37,11 +39,19 @@ def test_sct(te_sct, code, is_correct):
     assert sct_payload.get("student_code") == "ls -t"
 
 
-def test_sct_check_file():
+@pytest.fixture(scope="function")
+def tf():
+    with NamedTemporaryFile() as tmp:
+        tmp.file.write(b"hey")
+        tmp.file.flush()
+        yield tmp
+
+
+def test_sct_check_file(tf):
     sct_payload = te(
-        "Ex().check_file('file1.sh', use_fs=False).has_code('hey')",
-        student_code={"file1.sh": "echo hey"},
-        solution_code={"file1.sh": "echo ya"},
+        "Ex().check_file('{}').has_code('hey')".format(tf.name),
+        student_code="NA",
+        solution_code="NA",
         pre_exercise_code="",
         student_conn=None,
         solution_conn=None,
