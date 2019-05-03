@@ -1,6 +1,6 @@
 from protowhat.Test import TestFail
-from protowhat.Reporter import Reporter
 
+from shellwhat.reporter import Reporter
 from shellwhat.sct_syntax import SCT_CTX
 from shellwhat.State import State
 
