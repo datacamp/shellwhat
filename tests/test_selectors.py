@@ -1,7 +1,7 @@
 import pytest
 
 from shellwhat.State import State
-from protowhat.Reporter import Reporter
+from shellwhat.reporter import Reporter
 from protowhat.Test import TestFail as TF
 from protowhat.checks.check_funcs import check_node, check_edge, has_equal_ast
 from shellwhat.parsers import OshParser
