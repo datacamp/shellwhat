@@ -8,6 +8,5 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN echo hey && git clone -b ast https://github.com/datacamp/oil.git \
+RUN echo "Oil Install" && git clone -b ast-basic-highlight --depth=1 https://github.com/datacamp/oil.git \
     && cd oil && pip2 install -e .
-
