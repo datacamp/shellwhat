@@ -7,7 +7,10 @@ import os
 
 class OshNode(AstNode):
     def get_text(self, full_text=None):
-        return self.text
+        if self.text:
+            return self.text
+        else:
+            raise RuntimeError("The parser wasn't able to match text to this node")
 
     def get_position(self):
         return self.position
@@ -42,8 +45,8 @@ class OshParser(AstModule):
     def load(cls, node):
         obj = super().load(node)
         if isinstance(obj, cls.AstNode):
-            obj.text = node["text"]
-            obj.position = node["position"]
+            obj.text = node.get("text")
+            obj.position = node.get("position")
         return obj
 
 
