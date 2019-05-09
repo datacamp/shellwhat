@@ -23,7 +23,8 @@ class OshParser(AstModule):
     def parse(cls, code, strict=True):
         try:
             res = check_output(
-                PARSER_OSH_STUB + [code], env=dict(os.environ, PYENV_VERSION="2.7.10", PYTHONPATH=getattr(cls, "PYTHONPATH", None))
+                PARSER_OSH_STUB + [code],
+                env=dict(os.environ, PYENV_VERSION="2.7.10", PYTHONPATH=PYTHONPATH),
             )
             ast_dict = json.loads(res.decode())
             if ast_dict is None:
@@ -65,7 +66,7 @@ class DummyParser(AstModule):
 # Determine which parser to use and how it is called.
 # By default, the DummyParser is used.
 parse_opt = os.environ.get("SHELLWHAT_PARSER", "osh")
-setattr(OshParser, "PYTHONPATH", "/var/lib/python/site-packages/python2")
+PYTHONPATH = "/var/lib/python/site-packages/python2"
 if parse_opt == "osh":
     DEFAULT_PARSER = OshParser
     PARSER_OSH_STUB = ["python2", "-m", "osh"]
