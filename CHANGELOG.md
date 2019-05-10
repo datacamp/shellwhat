@@ -2,6 +2,12 @@
 
 All notable changes to the shellwhat project will be documented in this file.
 
+## 1.2.0
+
+- Update parsing functionality
+- Expose `_debug` function
+- Update protowhat
+
 ## 1.1.1
 
 - Include student code in result payload.
