@@ -65,7 +65,7 @@ def has_code(
 
     if not res:
         _msg = state.build_message(incorrect_msg, fmt_kwargs={"text": text})
-        state.report(Feedback(_msg))
+        state.report(_msg)
 
     return state
 
@@ -122,7 +122,7 @@ def has_output(
         _msg = state.build_message(
             incorrect_msg, fmt_kwargs={"text": text, "fixed": fixed}
         )
-        state.report(Feedback(_msg))
+        state.report(_msg)
 
     return state
 
@@ -188,7 +188,7 @@ def has_expr(
         _msg = state.build_message(
             incorrect_msg, fmt_kwargs={"expr": expr, "output": output}
         )
-        state.report(Feedback(_msg))
+        state.report(_msg)
 
     return state
 
