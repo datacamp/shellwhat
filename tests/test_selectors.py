@@ -36,7 +36,7 @@ def d():
 
 @pytest.fixture("function")
 def shell_script():
-    return """# Use curl, download file from URL and rename 
+    return """# Use curl, download file from URL and rename
 curl -o Spotify201812.zip -L https://tinyurl.com/Zipped201812Spotify
 
 # Unzip file then delete original zipped file
@@ -111,11 +111,7 @@ urlretrieve(url, 'url_list.txt')""",
         assert isinstance(child.student_ast, target)
         assert child.student_ast.token.val == "c"
         with pytest.raises(TF):
-            from protowhat.Feedback import Feedback
-
-            fb = Feedback("test")
-            child.report(fb)
-            assert fb.highlight is not None
+            child.report("test")
 
     def test_osh_selector_fail(self, state):
         with pytest.raises(TF):
