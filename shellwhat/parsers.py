@@ -9,8 +9,7 @@ class OshNode(AstNode):
     def get_text(self, full_text=None):
         if self.text:
             return self.text
-        else:
-            raise RuntimeError("The parser wasn't able to match text to this node")
+        raise RuntimeError("The parser wasn't able to match text to this node")
 
     def get_position(self):
         return self.position
@@ -21,6 +20,10 @@ class OshParser(AstModule):
 
     @classmethod
     def parse(cls, code, strict=True):
+        shared_libs_mount_point = os.environ.get(
+            "SHARED_PYTHON_PATH", "/var/lib/python/site-packages"
+        )
+        PYTHONPATH = "{}/python2".format(shared_libs_mount_point)
         try:
             res = check_output(
                 PARSER_OSH_STUB + [code],
@@ -66,7 +69,6 @@ class DummyParser(AstModule):
 # Determine which parser to use and how it is called.
 # By default, the DummyParser is used.
 parse_opt = os.environ.get("SHELLWHAT_PARSER", "osh")
-PYTHONPATH = "/var/lib/python/site-packages/python2"
 if parse_opt == "osh":
     DEFAULT_PARSER = OshParser
     PARSER_OSH_STUB = ["python2", "-m", "osh"]
