@@ -6,6 +6,8 @@ from shellwhat.checks.has_funcs import (
     has_expr_exit_code,
 )
 
+from shellwhat.run_file import run
+
 from protowhat.checks.check_logic import fail, multi, check_not, check_or, check_correct
 from protowhat.checks.check_simple import has_chosen, success_msg
 from protowhat.checks.check_files import check_file, has_dir
