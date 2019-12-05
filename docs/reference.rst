@@ -1,13 +1,15 @@
 Checks
 ------
 
-.. autofunction:: shellwhat.checks.check_funcs.has_code
+.. autofunction:: shellwhat.checks.has_funcs.has_code
 
-.. autofunction:: shellwhat.checks.check_funcs.has_output
+.. autofunction:: shellwhat.checks.has_funcs.has_output
 
-.. autofunction:: shellwhat.checks.check_funcs.has_expr_output
+.. autofunction:: shellwhat.checks.has_funcs.has_cwd
 
-.. autofunction:: shellwhat.checks.check_funcs.has_expr_exit_code
+.. autofunction:: shellwhat.checks.has_funcs.has_expr_output
+
+.. autofunction:: shellwhat.checks.has_funcs.has_expr_exit_code
 
 Files
 -----
