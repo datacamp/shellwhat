@@ -1,4 +1,4 @@
-from protowhat.Test import TestFail
+from protowhat.failure import TestFail
 
 from shellwhat.reporter import Reporter
 from shellwhat.sct_syntax import SCT_CTX
