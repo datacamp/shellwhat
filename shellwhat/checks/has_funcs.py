@@ -238,6 +238,7 @@ has_expr_output = partial(
     incorrect_msg="The checker expected to find the result of `{{expr}}` in your output, but couldn't.",
     test="output",
 )
+has_expr_output.__name__ = "has_expr_output"
 has_expr_output.__doc__ = docstr.format("result") + example
 
 has_expr_exit_code = partial(
@@ -246,4 +247,5 @@ has_expr_exit_code = partial(
     strict=True,
     test="exit_code",
 )
+has_expr_exit_code.__name__ = "has_expr_exit_code"
 has_expr_exit_code.__doc__ = docstr.format("exit code")
