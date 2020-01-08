@@ -1,7 +1,7 @@
 import re
 from functools import partial
 
-from protowhat.Feedback import Feedback
+from protowhat.Feedback import FeedbackComponent
 
 ANSI_REGEX = r"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]"
 
@@ -64,8 +64,7 @@ def has_code(
     res = text in stu_code if fixed else re.search(text, stu_code)
 
     if not res:
-        _msg = state.build_message(incorrect_msg, fmt_kwargs={"text": text})
-        state.report(_msg)
+        state.report(incorrect_msg, {"text": text})
 
     return state
 
@@ -119,10 +118,7 @@ def has_output(
     res = text in stu_output if fixed else re.search(text, stu_output)
 
     if not res:
-        _msg = state.build_message(
-            incorrect_msg, fmt_kwargs={"text": text, "fixed": fixed}
-        )
-        state.report(_msg)
+        state.report(incorrect_msg, {"text": text, "fixed": fixed})
 
     return state
 
@@ -151,7 +147,7 @@ def has_cwd(
 
     """
     expr = "[[ $PWD == '{}' ]]".format(dir)
-    _msg = state.build_message(incorrect_msg, fmt_kwargs={"dir": dir})
+    _msg = FeedbackComponent(incorrect_msg, {"dir": dir})
     has_expr_exit_code(state, expr, output="0", incorrect_msg=_msg)
     return state
 
@@ -185,10 +181,13 @@ def has_expr(
 
     # do the comparison
     if (strict and res != stu_output) or (res not in stu_output):
-        _msg = state.build_message(
-            incorrect_msg, fmt_kwargs={"expr": expr, "output": output}
-        )
-        state.report(_msg)
+        if isinstance(incorrect_msg, FeedbackComponent):
+            state.report(
+                incorrect_msg.feedback,
+                {"expr": expr, "output": output, **incorrect_msg.kwargs},
+            )
+        else:
+            state.report(incorrect_msg, {"expr": expr, "output": output})
 
     return state
 
