@@ -1,4 +1,4 @@
-from protowhat.failure import TestFail
+from protowhat.failure import Failure, InstructorError
 
 from shellwhat.reporter import Reporter
 from shellwhat.sct_syntax import SCT_CTX
@@ -22,6 +22,8 @@ def test_exercise(
     """
     """
 
+    reporter = Reporter(errors=error)
+
     state = State(
         student_code=student_code,
         solution_code=solution_code,
@@ -30,21 +32,23 @@ def test_exercise(
         solution_conn=solution_conn,
         student_result=student_result,
         solution_result=solution_result,
-        reporter=Reporter(errors=error),
+        reporter=reporter,
         force_diagnose=force_diagnose,
     )
 
     State.root_state = state
     SCT_CTX["Ex"].root_state = state
 
+    def add_student_code(data):
+        data["student_code"] = student_code
+        return data
+
     try:
         exec(sct, SCT_CTX)
-    except TestFail as tf:
-        result = tf.payload
-        result["student_code"] = student_code
-        return result
+    except Failure as e:
+        if isinstance(e, InstructorError):
+            # TODO: decide based on context
+            raise e
+        return add_student_code(reporter.build_failed_payload(e.feedback))
 
-    result = state.reporter.build_final_payload()
-    result["student_code"] = student_code
-
-    return result
+    return add_student_code(reporter.build_final_payload())
