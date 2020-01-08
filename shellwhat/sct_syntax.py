@@ -6,7 +6,7 @@ from protowhat.sct_syntax import get_checks_dict, create_sct_context
 
 # used in Chain and F, to know what methods are available
 sct_dict = get_checks_dict(checks)
-SCT_CTX = create_sct_context(State, sct_dict)
+SCT_CTX = create_sct_context(sct_dict)
 
 # used in test_exercise, so that scts without Ex() don't run immediately
 globals().update(SCT_CTX)
