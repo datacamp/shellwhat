@@ -15,7 +15,7 @@ def run_around_tests():
 
 @pytest.fixture("function")
 def state():
-    state = State(
+    return State(
         student_code="echo a $b ${c}",
         solution_code="echo a $b ${c} unique",
         pre_exercise_code="",
@@ -25,8 +25,6 @@ def state():
         solution_result="",
         reporter=Reporter(),
     )
-    state.root_state = state
-    return state
 
 
 @pytest.fixture("function")

@@ -11,7 +11,7 @@ from shellwhat.State import State
 
 @pytest.fixture
 def state():
-    state = State(
+    return State(
         student_code="some code\x1b[39;49m",
         solution_code="some code",
         pre_exercise_code="",
@@ -21,8 +21,6 @@ def state():
         solution_result=None,
         reporter=Reporter(),
     )
-    state.root_state = state
-    return state
 
 
 def test_strip_ansi(state):
