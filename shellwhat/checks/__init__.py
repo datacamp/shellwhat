@@ -11,6 +11,7 @@ from shellwhat.run_file import run
 from protowhat.checks.check_logic import fail, multi, check_not, check_or, check_correct
 from protowhat.checks.check_simple import has_chosen, success_msg
 from protowhat.checks.check_files import check_file, has_dir
+from protowhat.checks.check_bash_history import has_command
 
 # be cautious using protowhat checks
 # has_code has its own implementation in shellwhat
