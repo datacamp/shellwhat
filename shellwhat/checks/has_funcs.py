@@ -183,7 +183,7 @@ def has_expr(
     if (strict and res != stu_output) or (res not in stu_output):
         if isinstance(incorrect_msg, FeedbackComponent):
             state.report(
-                incorrect_msg.feedback,
+                incorrect_msg.message,
                 {"expr": expr, "output": output, **incorrect_msg.kwargs},
             )
         else:
