@@ -1,6 +1,6 @@
 from protowhat.failure import Failure, InstructorError
+from protowhat.Reporter import Reporter
 
-from shellwhat.reporter import Reporter
 from shellwhat.sct_syntax import SCT_CTX
 from shellwhat.State import State
 

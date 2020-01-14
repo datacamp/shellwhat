@@ -1,11 +1,12 @@
-from shellwhat.State import State
-from shellwhat.checks.has_funcs import *
-from shellwhat.reporter import Reporter
-from protowhat.checks.check_logic import multi
-from protowhat.failure import TestFail as TF
+import pytest
+
 from pexpect import replwrap
 
-import pytest
+from protowhat.checks.check_logic import multi
+from protowhat.failure import TestFail as TF
+from protowhat.Reporter import Reporter
+from shellwhat.checks.has_funcs import *
+from shellwhat.State import State
 
 
 @pytest.fixture

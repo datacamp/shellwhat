@@ -1,10 +1,10 @@
 import pytest
 
-from shellwhat.State import State
-from shellwhat.reporter import Reporter
-from protowhat.failure import TestFail as TF
 from protowhat.checks.check_funcs import check_node, check_edge, has_equal_ast
+from protowhat.failure import TestFail as TF
+from protowhat.Reporter import Reporter
 from shellwhat.parsers import OshParser
+from shellwhat.State import State
 
 
 @pytest.fixture(autouse=True)

@@ -1,13 +1,14 @@
 import pytest
 import os
 import subprocess
+
 from pexpect import replwrap
 from tempfile import TemporaryDirectory
 from pathlib import Path
 
-from shellwhat.reporter import Reporter
-from shellwhat.State import State
+from protowhat.Reporter import Reporter
 from shellwhat.run_file import run
+from shellwhat.State import State
 
 
 @pytest.fixture
