@@ -17,6 +17,12 @@ Files
 .. automodule:: protowhat.checks.check_files
     :members:
 
+Bash history checks
+-------------------
+
+.. automodule:: protowhat.checks.check_bash_history
+    :members:
+
 Logic
 -----
 
