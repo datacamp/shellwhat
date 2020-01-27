@@ -31,7 +31,7 @@ def run(state):
 def run_file(path):
     output, exception = None, None
     try:
-        output = subprocess.check_output(path.__str__(), stderr=subprocess.PIPE)
+        output = subprocess.check_output(["/bin/bash", str(path)], stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
         exception = (
             "returned non-zero exit status "
@@ -39,8 +39,6 @@ def run_file(path):
             + " "
             + str(e.stderr, "utf-8")
         )
-    except PermissionError:
-        exception = "{} is not executable".format(path)
 
     try:
         output = str(output, "utf-8")
