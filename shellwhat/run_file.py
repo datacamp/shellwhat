@@ -1,6 +1,6 @@
 import subprocess
 
-from shellwhat.reporter import Reporter
+from protowhat.Reporter import Reporter
 
 
 def run(state):

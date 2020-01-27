@@ -20,4 +20,4 @@ from protowhat.checks.check_funcs import (
     has_equal_ast,
     has_parsed_ast,
 )
-from protowhat.utils import _debug
+from protowhat.failure import _debug

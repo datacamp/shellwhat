@@ -1,5 +1,5 @@
 # pkg deps
-protowhat~=1.14.1
+protowhat~=2.0.0
 
 # test deps
 pytest~=3.7.2

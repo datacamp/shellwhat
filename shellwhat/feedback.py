@@ -1,7 +1,7 @@
-from protowhat.Reporter import Reporter as BaseReporter
+from protowhat.Feedback import Feedback as ProtoFeedback
 
 
-class Reporter(BaseReporter):
+class Feedback(ProtoFeedback):
     ast_highlight_offset = {
         "line_start": 1,
         "column_start": 1,

@@ -1,16 +1,17 @@
-from shellwhat.State import State
-from shellwhat.checks.has_funcs import *
-from shellwhat.reporter import Reporter
-from protowhat.checks.check_logic import multi
-from protowhat.Test import TestFail as TF
+import pytest
+
 from pexpect import replwrap
 
-import pytest
+from protowhat.checks.check_logic import multi
+from protowhat.failure import TestFail as TF
+from protowhat.Reporter import Reporter
+from shellwhat.checks.has_funcs import *
+from shellwhat.State import State
 
 
 @pytest.fixture
 def state():
-    state = State(
+    return State(
         student_code="some code\x1b[39;49m",
         solution_code="some code",
         pre_exercise_code="",
@@ -20,8 +21,6 @@ def state():
         solution_result=None,
         reporter=Reporter(),
     )
-    state.root_state = state
-    return state
 
 
 def test_strip_ansi(state):

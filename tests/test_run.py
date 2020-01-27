@@ -1,18 +1,19 @@
 import pytest
 import os
 import subprocess
+
 from pexpect import replwrap
 from tempfile import TemporaryDirectory
 from pathlib import Path
 
-from shellwhat.reporter import Reporter
-from shellwhat.State import State
+from protowhat.Reporter import Reporter
 from shellwhat.run_file import run
+from shellwhat.State import State
 
 
 @pytest.fixture
 def state():
-    state = State(
+    return State(
         student_code="some code\x1b[39;49m",
         solution_code="some code",
         pre_exercise_code="",
@@ -22,8 +23,6 @@ def state():
         solution_result=None,
         reporter=Reporter(),
     )
-    state.root_state = state
-    return state
 
 
 @pytest.fixture(scope="function")

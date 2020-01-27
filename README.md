@@ -15,28 +15,34 @@ shellwhat
 Installing
 ----------
 
-```
+```bash
 pip install shellwhat
 ```
 
 Development
 -----------
 
+Install everything needed for developing:
+
+```bash
+pip install -r requirements.txt
+pip install -e .
+```
+
 By default, the `DummyParser` is used, that does not parse the shell code.
 Hence, you can not run tests that need this parser:
 
-```
+```bash
 pytest -m "not osh"
 ```
 
 If you also want to run these 'parser tests',
-there is Dockerfile to parse shell commands with
+there is a Dockerfile to parse shell commands with
 the [Oil parser](https://github.com/oilshell/oil):
 
-```
+```bash
 # Look in Makefile for details
-export SHELLWHAT_PARSER='docker'
-make test
+SHELLWHAT_PARSER='docker' make test
 ```
 
 
