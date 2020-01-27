@@ -113,23 +113,3 @@ def test_run_student_code_error(state, tempdir):
 
     # Then
     assert state.reporter.errors == ["returned non-zero exit status 5 Noooo!\n"]
-
-
-def test_run_student_not_executable(state, tempdir):
-    # Given
-    state.student_code = "echo 'test'\n"
-    state.solution_code = ""
-
-    filedir = tempdir + "/myscript.sh"
-    with open(filedir, "w+") as f:
-        f.write("#!/bin/bash\n")
-        f.write(state.student_code)
-
-    subprocess.run(["chmod", "-x", filedir])
-    state.path = Path(filedir)
-
-    # When
-    state = run(state)
-
-    # Then
-    assert state.reporter.errors == [filedir + " is not executable"]

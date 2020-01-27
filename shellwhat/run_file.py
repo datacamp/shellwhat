@@ -39,8 +39,6 @@ def run_file(path):
             + " "
             + str(e.stderr, "utf-8")
         )
-    except PermissionError:
-        exception = "{} is not executable".format(path)
 
     try:
         output = str(output, "utf-8")
