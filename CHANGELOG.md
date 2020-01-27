@@ -2,6 +2,12 @@
 
 All notable changes to the shellwhat project will be documented in this file.
 
+## 1.4.0
+
+- Use protowhat v2
+- Expose `has_command` function
+- Fix `run()` function
+
 ## 1.3.0
 
 - Add `run()` sct function
