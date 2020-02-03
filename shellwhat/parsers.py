@@ -4,6 +4,7 @@ from ast import NodeTransformer
 from subprocess import check_output
 
 from protowhat.utils_ast import AstNode, AstModule
+from antlr_ast.ast import Speaker
 
 
 class OshNode(AstNode):
@@ -18,6 +19,7 @@ class OshNode(AstNode):
 
 class OshParser(AstModule):
     AstNode = OshNode
+    speaker = Speaker(nodes={})
 
     @classmethod
     def parse(cls, code, strict=True):

@@ -6,7 +6,7 @@ from os import path
 from setuptools import setup
 
 PACKAGE_NAME = "shellwhat"
-REQUIREMENT_NAMES = ["protowhat"]
+REQUIREMENT_NAMES = ["protowhat", "antlr-ast"]
 
 HERE = path.abspath(path.dirname(__file__))
 VERSION_FILE = path.join(HERE, PACKAGE_NAME, "__init__.py")

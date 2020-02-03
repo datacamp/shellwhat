@@ -1,5 +1,6 @@
 # pkg deps
 protowhat~=2.0.1
+antlr-ast~=0.8.1
 
 # test deps
 pytest~=3.7.2
