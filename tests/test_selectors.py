@@ -112,8 +112,10 @@ urlretrieve(url, 'url_list.txt')""",
             child.report("test")
 
     def test_osh_selector_fail(self, state):
-        with pytest.raises(TF):
-            check_edge(state, "words", 4)
+        with pytest.raises(TF, match="oh no"):
+            check_edge(state, "words", 4, "oh no")
+        with pytest.raises(TF, match="oh no"):
+            check_node(state, "CompoundWord", 4, "oh no")
 
     def test_osh_transformer_omits_sentence(self, d):
         tree = d.parse("echo a b c;")
