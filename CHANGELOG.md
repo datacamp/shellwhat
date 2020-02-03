@@ -2,6 +2,11 @@
 
 All notable changes to the shellwhat project will be documented in this file.
 
+## 1.5.0
+
+- Make 'has' functions more robust
+- Make `missing_msg` argument work for `check_node` and `check_edge`
+
 ## 1.4.0
 
 - Use protowhat v2
