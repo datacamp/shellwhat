@@ -1,28 +1,31 @@
 import re
 from functools import partial
+from typing import Union
 
 from protowhat.Feedback import FeedbackComponent
+
+from shellwhat.State import State
 
 ANSI_REGEX = r"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]"
 
 
-def _strip_ansi(result):
-    return re.sub(ANSI_REGEX, "", result)
+def _strip_ansi(output: str) -> str:
+    if not isinstance(output, str):
+        return output
+    return re.sub(ANSI_REGEX, "", output)
 
 
-def strip_ansi(state):
+def strip_ansi(state: State) -> State:
     """Remove ANSI escape codes from student result."""
-    stu_res = _strip_ansi(state.student_result)
-
-    return state.to_child(student_result=stu_res)
+    return state.to_child(student_result=_strip_ansi(state.student_result))
 
 
 def has_code(
-    state,
-    text,
-    incorrect_msg="The checker expected to find `{{text}}` in your command.",
-    fixed=False,
-):
+    state: State,
+    text: str,
+    incorrect_msg: str = "The checker expected to find `{{text}}` in your command.",
+    fixed: bool = False,
+) -> State:
     """Check whether the student code contains text.
 
     This function is a simpler override of the `has_code` function in protowhat,
@@ -58,24 +61,24 @@ def has_code(
             git push --force origin master
     """
 
-    stu_code = state.student_code
+    student_code = state.student_code
 
     # either simple text matching or regex test
-    res = text in stu_code if fixed else re.search(text, stu_code)
+    correct = text in student_code if fixed else re.search(text, student_code)
 
-    if not res:
+    if not correct:
         state.report(incorrect_msg, {"text": text})
 
     return state
 
 
 def has_output(
-    state,
-    text,
-    incorrect_msg="The checker expected to find {{'' if fixed else 'the pattern '}}`{{text}}` in the output of your command.",
-    fixed=False,
-    strip_ansi=True,
-):
+    state: State,
+    text: str,
+    incorrect_msg: str = "The checker expected to find {{'' if fixed else 'the pattern '}}`{{text}}` in the output of your command.",
+    fixed: bool = False,
+    strip_ansi: bool = True,
+) -> State:
     """Check whether student output contains specific text.
 
     Before you use ``has_output()``, have a look at ``has_expr_output()`` or ``has_expr_error()``;
@@ -108,26 +111,29 @@ def has_output(
 
             echo 'this is a wrong printout'
     """
-
-    stu_output = state.student_result
+    student_output = state.student_result
 
     if strip_ansi:
-        stu_output = _strip_ansi(stu_output)
+        student_output = _strip_ansi(student_output)
 
-    # either simple text matching or regex test
-    res = text in stu_output if fixed else re.search(text, stu_output)
+    if student_output is None:
+        # The output can be None, when using run()
+        correct = student_output is text
+    else:
+        # either simple text matching or regex test
+        correct = text in student_output if fixed else re.search(text, student_output)
 
-    if not res:
+    if not correct:
         state.report(incorrect_msg, {"text": text, "fixed": fixed})
 
     return state
 
 
 def has_cwd(
-    state,
-    dir,
-    incorrect_msg="Your current working directory should be `{{dir}}`. Use `cd {{dir}}` to navigate there.",
-):
+    state: State,
+    dir: str,
+    incorrect_msg: str = "Your current working directory should be `{{dir}}`. Use `cd {{dir}}` to navigate there.",
+) -> State:
     """Check whether the student is in the expected directory.
 
     This check is typically used before using ``has_expr_output()``
@@ -153,35 +159,42 @@ def has_cwd(
 
 
 def has_expr(
-    state,
-    expr=None,
-    incorrect_msg=None,
-    strict=False,
-    output=None,
-    test="output",
-    strip_ansi=True,
-):
-    if expr is None:
-        expr = state.solution_code.strip()
+    state: State,
+    expr: str = None,
+    incorrect_msg: Union[str, FeedbackComponent] = None,
+    strict: bool = False,
+    output: str = None,
+    test=str,
+    strip_ansi: bool = True,
+) -> State:
     if incorrect_msg is None:
         raise ValueError("Make sure to specify an incorrect_msg in has_expr")
 
     # get the output produced by the student
-    stu_output = output if output is not None else state.student_result
+    full_output = state.student_result if output is None else output
     if strip_ansi:
-        stu_output = _strip_ansi(stu_output).strip()
+        full_output = _strip_ansi(full_output)
+        if isinstance(full_output, str):
+            full_output = full_output.strip()
 
     # run the expression
-    res = state.student_conn.run_command(expr).strip()
+    if expr is None:
+        expr = state.solution_code.strip()
+    expression_output = state.student_conn.run_command(expr).strip()
     if strip_ansi:
-        res = _strip_ansi(res).strip()
+        expression_output = _strip_ansi(expression_output).strip()
     if test == "exit_code":
-        # set res to exit code for prev command
-        res = state.student_conn.run_command(" echo $?").strip()
+        # set expression_output to exit code for prev command
+        expression_output = state.student_conn.run_command(" echo $?").strip()
 
     # do the comparison
-    if (strict and res != stu_output) or (res not in stu_output):
+    if (
+        (full_output is None and expression_output is not None)
+        or (strict and expression_output != full_output)
+        or (expression_output not in full_output)
+    ):
         if isinstance(incorrect_msg, FeedbackComponent):
+            # used by e.g. has_cwd
             state.report(
                 incorrect_msg.message,
                 {"expr": expr, "output": output, **incorrect_msg.kwargs},

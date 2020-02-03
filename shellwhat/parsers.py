@@ -1,8 +1,9 @@
-from protowhat.utils_ast import AstNode, AstModule
+import os
+import json
 from ast import NodeTransformer
 from subprocess import check_output
-import json
-import os
+
+from protowhat.utils_ast import AstNode, AstModule
 
 
 class OshNode(AstNode):
