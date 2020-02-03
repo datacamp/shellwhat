@@ -81,7 +81,7 @@ def test_run_student_code_output(state, tempdir):
 def test_run_student_code_no_output(state, tempdir):
     # Given
     state.student_code = "ech"
-    state.solution_code = "ech"
+    state.solution_code = "echo"
 
     filedir = tempdir + "/myscript.sh"
     with open(filedir, "w+") as f:
@@ -98,7 +98,7 @@ def test_run_student_code_no_output(state, tempdir):
     with pytest.raises(TF):
         has_output(state, 'test')
     with pytest.raises(TF):
-        has_expr_output(state, output="test")
+        has_expr_output(state)
     strip_ansi(state)
 
 

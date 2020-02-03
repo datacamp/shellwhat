@@ -10,17 +10,14 @@ ANSI_REGEX = r"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]"
 
 
 def _strip_ansi(output: str) -> str:
+    if not isinstance(output, str):
+        return output
     return re.sub(ANSI_REGEX, "", output)
 
 
 def strip_ansi(state: State) -> State:
     """Remove ANSI escape codes from student result."""
-    student_result = state.student_result
-    if student_result is None:
-        # The output can be None, when using run()
-        student_result = ""
-
-    return state.to_child(student_result=_strip_ansi(student_result))
+    return state.to_child(student_result=_strip_ansi(state.student_result))
 
 
 def has_code(
@@ -115,15 +112,16 @@ def has_output(
             echo 'this is a wrong printout'
     """
     student_output = state.student_result
-    if student_output is None:
-        # The output can be None, when using run()
-        student_output = ""
 
     if strip_ansi:
         student_output = _strip_ansi(student_output)
 
-    # either simple text matching or regex test
-    correct = text in student_output if fixed else re.search(text, student_output)
+    if student_output is None:
+        # The output can be None, when using run()
+        correct = student_output is text
+    else:
+        # either simple text matching or regex test
+        correct = text in student_output if fixed else re.search(text, student_output)
 
     if not correct:
         state.report(incorrect_msg, {"text": text, "fixed": fixed})
@@ -173,14 +171,11 @@ def has_expr(
         raise ValueError("Make sure to specify an incorrect_msg in has_expr")
 
     # get the output produced by the student
-    full_output = state.student_result
-    if output is not None:
-        full_output = output
-    elif full_output is None:
-        # The output can be None, when using run()
-        full_output = ""
+    full_output = state.student_result if output is None else output
     if strip_ansi:
-        full_output = _strip_ansi(full_output).strip()
+        full_output = _strip_ansi(full_output)
+        if isinstance(full_output, str):
+            full_output = full_output.strip()
 
     # run the expression
     if expr is None:
@@ -193,8 +188,10 @@ def has_expr(
         expression_output = state.student_conn.run_command(" echo $?").strip()
 
     # do the comparison
-    if (strict and expression_output != full_output) or (
-        expression_output not in full_output
+    if (
+        (full_output is None and expression_output is not None)
+        or (strict and expression_output != full_output)
+        or (expression_output not in full_output)
     ):
         if isinstance(incorrect_msg, FeedbackComponent):
             # used by e.g. has_cwd
