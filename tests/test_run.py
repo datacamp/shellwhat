@@ -7,6 +7,10 @@ from tempfile import TemporaryDirectory
 from pathlib import Path
 
 from protowhat.Reporter import Reporter
+from protowhat.failure import TestFail as TF
+
+from shellwhat.checks import has_output
+from shellwhat.checks.has_funcs import strip_ansi, has_expr_output
 from shellwhat.run_file import run
 from shellwhat.State import State
 
@@ -72,6 +76,30 @@ def test_run_student_code_output(state, tempdir):
 
     # Then
     assert state.student_result == "test\n"
+
+
+def test_run_student_code_no_output(state, tempdir):
+    # Given
+    state.student_code = "ech"
+    state.solution_code = "ech"
+
+    filedir = tempdir + "/myscript.sh"
+    with open(filedir, "w+") as f:
+        f.write("#!/bin/bash\n")
+        f.write(state.student_code)
+
+    state.path = Path(filedir)
+
+    # When
+    state = run(state)
+
+    # Then
+    assert state.student_result is None
+    with pytest.raises(TF):
+        has_output(state, 'test')
+    with pytest.raises(TF):
+        has_expr_output(state, output="test")
+    strip_ansi(state)
 
 
 def test_run_student_code_env_var_access(state, tempdir):
